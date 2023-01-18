@@ -28,20 +28,34 @@ namespace Application.Handlers {
             return new KernelControllerResponse<CreateStudentResponse>().AddError("UnknownError", "An unknown error occurred.");
         }
 
-        public async Task<KernelControllerResponse<KernelDeleteResponse>> DeleteStudent(Guid id) {
+        public async Task<KernelControllerResponse<KernelResponse>> DeleteStudent(Guid id) {
             var studentEntity = await _applicationDbContext.Students.FirstOrDefaultAsync(s => s.Id == id);
 
             if (studentEntity == null) {
-                return new KernelControllerResponse<KernelDeleteResponse>().AddError("NotFound", "Entity was not found.");
+                return new KernelControllerResponse<KernelResponse>().AddError("NotFound", "Entity was not found.");
             }
 
             _applicationDbContext.Students.Remove(studentEntity);
-
             if (await _applicationDbContext.SaveChangesAsync() == 0) {
-                return new KernelControllerResponse<KernelDeleteResponse>().AddError("UnknownError", "An unknown error occurred.");
+                return new KernelControllerResponse<KernelResponse>().AddError("UnknownError", "An unknown error occurred.");
             }
 
-            return new KernelControllerResponse<KernelDeleteResponse>();
+            return new KernelControllerResponse<KernelResponse>();
+        }
+
+        public async Task<KernelControllerResponse<KernelResponse>> UpdateStudent(Guid id, UpdateStudentRequest updateStudentRequest) {
+            var studentEntity = await _applicationDbContext.Students.FirstOrDefaultAsync(s => s.Id == id);
+
+            if (studentEntity == null) {
+                return new KernelControllerResponse<KernelResponse>().AddError("NotFound", "Entity was not found.");
+            }
+
+            updateStudentRequest.Adapt(studentEntity);
+            if (await _applicationDbContext.SaveChangesAsync() == 0) {
+                return new KernelControllerResponse<KernelResponse>().AddError("UnknownError", "An unknown error occurred.");
+            }
+
+            return new KernelControllerResponse<KernelResponse>();
         }
     }
 
