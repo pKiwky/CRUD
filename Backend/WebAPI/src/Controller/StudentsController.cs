@@ -25,12 +25,12 @@ namespace WebAPI.Controller {
             return Handle(await _studentCommand.CreateStudent(createStudentRequest));
         }
 
-        [HttpPost("update")]
+        [HttpPut("update")]
         public async Task<IActionResult> Update(Guid id, UpdateStudentRequest updateStudentRequest) {
             return Handle(await _studentCommand.UpdateStudent(id, updateStudentRequest));
         }
 
-        [HttpPost("delete")]
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(Guid id) {
             return Handle(await _studentCommand.DeleteStudent(id));
         }
