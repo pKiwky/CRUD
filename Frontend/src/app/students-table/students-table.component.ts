@@ -16,7 +16,8 @@ export class StudentsTableComponent implements OnInit {
     department: new FormControl(''),
     sex: new FormControl(''),
   });
-  showModal = false;
+  display: boolean = false;
+  add: boolean = false;
 
   constructor(
     private studentService: StudentService,
@@ -33,7 +34,7 @@ export class StudentsTableComponent implements OnInit {
     });
   }
 
-  delete(id: any) {
+  deleteStudent(id: any) {
     this.studentService.delete(id).subscribe({
       next: (resp) => {
         this.toastrService.success('Student was deleted successfully.');
@@ -49,7 +50,7 @@ export class StudentsTableComponent implements OnInit {
     });
   }
 
-  add() {
+  addStudent() {
     this.studentService.create(this.formData.value).subscribe({
       next: (resp) => {
         this.toastrService.success('Student was added successfully.');
@@ -64,11 +65,29 @@ export class StudentsTableComponent implements OnInit {
       },
     });
 
-    this.showModal = false;
-    this.formData.reset();
+    this.display = false;
   }
 
-  showAdd() {
-    this.showModal = true;
+  editStudent() {
+    
+  }
+
+  displayModal(student: any = null) {
+    this.display = true;
+    this.add = student === null;
+
+    // Add
+    if (student === null) {
+      this.formData.reset();
+    }
+    // Edit
+    else {
+      this.formData.setValue({
+        firstName: student.firstName,
+        lastName: student.lastName,
+        department: student.department,
+        sex: student.sex,
+      });
+    }
   }
 }

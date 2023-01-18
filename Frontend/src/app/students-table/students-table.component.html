@@ -4,7 +4,7 @@
             <span class="pe-1">
                 Students
             </span>
-            <p-button styleClass="p-button-success p-button-sm" type="button" (click)="showAdd()"
+            <p-button styleClass="p-button-success p-button-sm" type="button" (click)="displayModal()"
                 icon="pi pi-plus-circle"></p-button>
         </div>
         <div class="card-body">
@@ -25,7 +25,10 @@
                         <td>{{student.department}}</td>
                         <td>{{student.sex}}</td>
                         <td>
-                            <p-button label="Delete" styleClass="p-button-danger" (click)="delete(student.id)" icon="pi pi-trash"></p-button>
+                            <p-button styleClass="p-button-danger me-2" (click)="deleteStudent(student.id)"
+                                icon="pi pi-trash"></p-button>
+                            <p-button styleClass="p-button-primary" (click)="displayModal(student)"
+                                icon="pi pi-pencil"></p-button>
                         </td>
                     </tr>
                 </ng-template>
@@ -34,7 +37,12 @@
     </div>
 </div>
 
-<p-dialog header="Add new student" [modal]="true" [resizable]="false" [draggable]="false" [visible]="showModal">
+<p-dialog header="Add new student" [style]="{'width': '20rem'}" [modal]="true" [resizable]="false" [draggable]="false"
+    [(visible)]="display">
+    <ng-template pTemplate="header">
+        {{add ? 'Add student' : 'Edit student'}}
+    </ng-template>
+
     <ng-template pTemplate="content">
         <form [formGroup]="formData">
             <div class="input-container">
@@ -56,6 +64,6 @@
     </ng-template>
 
     <ng-template pTemplate="footer">
-        <p-button label="Add" (click)="add()"></p-button>
+        <p-button label="{{add ? 'Add' : 'Edit'}}" (click)="add === true ? addStudent() : editStudent()"></p-button>
     </ng-template>
 </p-dialog>
