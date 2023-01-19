@@ -32,7 +32,7 @@ namespace Application.Handlers {
             var studentEntity = await _applicationDbContext.Students.FirstOrDefaultAsync(s => s.Id == id);
 
             if (studentEntity == null) {
-                return new KernelControllerResponse<KernelResponse>().AddError("NotFound", "Entity was not found.");
+                return new KernelControllerResponse<KernelResponse>().AddNotFoundError();
             }
 
             _applicationDbContext.Students.Remove(studentEntity);
@@ -47,7 +47,7 @@ namespace Application.Handlers {
             var studentEntity = await _applicationDbContext.Students.FirstOrDefaultAsync(s => s.Id == id);
 
             if (studentEntity == null) {
-                return new KernelControllerResponse<KernelResponse>().AddError("NotFound", "Entity was not found.");
+                return new KernelControllerResponse<KernelResponse>().AddNotFoundError();
             }
 
             updateStudentRequest.Adapt(studentEntity);

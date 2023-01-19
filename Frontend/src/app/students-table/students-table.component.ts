@@ -11,6 +11,7 @@ import { StudentService } from '../services/student.service';
 export class StudentsTableComponent implements OnInit {
   students: any[] = [];
   formData = new FormGroup({
+    id: new FormControl(''),
     firstName: new FormControl(''),
     lastName: new FormControl(''),
     department: new FormControl(''),
@@ -22,7 +23,7 @@ export class StudentsTableComponent implements OnInit {
   constructor(
     private studentService: StudentService,
     private toastrService: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getStudents();
@@ -69,7 +70,31 @@ export class StudentsTableComponent implements OnInit {
   }
 
   editStudent() {
-    
+    const id = this.formData.value.id;
+    if (!id) {
+      return;
+    }
+
+    this.studentService.update(id, {
+      firstName: this.formData.value.firstName,
+      lastName: this.formData.value.lastName,
+      department: this.formData.value.department,
+      sex: this.formData.value.sex,
+    }).subscribe({
+      next: (resp) => {
+        this.toastrService.success('Student was updated successfully.');
+        this.getStudents();
+      },
+      error: (e) => {
+        e = e.error;
+
+        if (e.errors != null) {
+          this.toastrService.error(e.errors[0].message);
+        }
+      },
+    });
+
+    this.display = false;
   }
 
   displayModal(student: any = null) {
@@ -83,6 +108,7 @@ export class StudentsTableComponent implements OnInit {
     // Edit
     else {
       this.formData.setValue({
+        id: student.id,
         firstName: student.firstName,
         lastName: student.lastName,
         department: student.department,

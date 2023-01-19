@@ -25,7 +25,7 @@ namespace WebAPI.Controller {
             return Handle(await _studentCommand.CreateStudent(createStudentRequest));
         }
 
-        [HttpPut("update")]
+        [HttpPut("update/{id}")]
         public async Task<IActionResult> Update(Guid id, UpdateStudentRequest updateStudentRequest) {
             return Handle(await _studentCommand.UpdateStudent(id, updateStudentRequest));
         }

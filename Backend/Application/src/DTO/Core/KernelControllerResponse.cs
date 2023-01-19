@@ -19,7 +19,7 @@ namespace Application.Dto {
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public T Result { get; }
 
-        public KernelControllerResponse() { }
+        public KernelControllerResponse() {}
 
         public KernelControllerResponse(T result) {
             Result = result;
@@ -31,11 +31,16 @@ namespace Application.Dto {
             }
 
             Errors.Add(kernelErrorResponse);
+
             return this;
         }
 
         public KernelControllerResponse<T> AddError(string subject, string message) {
             return this.AddError(new KernelErrorResponse(subject, message));
+        }
+
+        public KernelControllerResponse<T> AddNotFoundError() {
+            return this.AddError((new KernelErrorResponse("NotFoundError", "Entity was not found")));
         }
     }
 
