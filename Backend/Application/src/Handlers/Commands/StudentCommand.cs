@@ -1,7 +1,6 @@
 ﻿using Application.Common.Interfaces;
 using Application.Contracts;
 using Application.Dto;
-using Application.DTO.Student;
 using Domain.Entities;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +27,21 @@ namespace Application.Handlers {
             return new KernelControllerResponse<CreateStudentResponse>().AddError("UnknownError", "An unknown error occurred.");
         }
 
+        public async Task<KernelControllerResponse<KernelResponse>> UpdateStudent(Guid id, UpdateStudentRequest updateStudentRequest) {
+            var studentEntity = await _applicationDbContext.Students.FirstOrDefaultAsync(s => s.Id == id);
+
+            if (studentEntity == null) {
+                return new KernelControllerResponse<KernelResponse>().AddNotFoundError();
+            }
+
+            updateStudentRequest.Adapt(studentEntity);
+            if (await _applicationDbContext.SaveChangesAsync() == 0) {
+                return new KernelControllerResponse<KernelResponse>().AddError("UnknownError", "An unknown error occurred.");
+            }
+
+            return new KernelControllerResponse<KernelResponse>();
+        }
+
         public async Task<KernelControllerResponse<KernelResponse>> DeleteStudent(Guid id) {
             var studentEntity = await _applicationDbContext.Students.FirstOrDefaultAsync(s => s.Id == id);
 
@@ -43,20 +57,6 @@ namespace Application.Handlers {
             return new KernelControllerResponse<KernelResponse>();
         }
 
-        public async Task<KernelControllerResponse<KernelResponse>> UpdateStudent(Guid id, UpdateStudentRequest updateStudentRequest) {
-            var studentEntity = await _applicationDbContext.Students.FirstOrDefaultAsync(s => s.Id == id);
-
-            if (studentEntity == null) {
-                return new KernelControllerResponse<KernelResponse>().AddNotFoundError();
-            }
-
-            updateStudentRequest.Adapt(studentEntity);
-            if (await _applicationDbContext.SaveChangesAsync() == 0) {
-                return new KernelControllerResponse<KernelResponse>().AddError("UnknownError", "An unknown error occurred.");
-            }
-
-            return new KernelControllerResponse<KernelResponse>();
-        }
     }
 
 }

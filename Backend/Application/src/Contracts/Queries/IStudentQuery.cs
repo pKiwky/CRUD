@@ -1,5 +1,4 @@
 ﻿using Application.Dto;
-using Application.DTO.Student;
 
 namespace Application.Contracts.Queries {
 

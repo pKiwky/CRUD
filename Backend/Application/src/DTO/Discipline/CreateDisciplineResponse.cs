@@ -1,6 +1,6 @@
 ﻿namespace Application.Dto {
 
-    public class CreateStudentResponse {
+    public class CreateDisciplineResponse {
         public Guid Id { get; set; }
     }
 

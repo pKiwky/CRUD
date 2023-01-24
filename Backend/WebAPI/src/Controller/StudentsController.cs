@@ -1,18 +1,18 @@
 ﻿using Application.Contracts;
 using Application.Contracts.Queries;
-using Application.DTO.Student;
+using Application.Dto;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Common;
 
 namespace WebAPI.Controller {
 
     public class StudentsController : APIController {
-        private readonly IStudentCommand _studentCommand;
         private readonly IStudentQuery _studentQuery;
+        private readonly IStudentCommand _studentCommand;
 
-        public StudentsController(IStudentCommand studentCommand, IStudentQuery studentQuery) {
-            _studentCommand = studentCommand;
+        public StudentsController(IStudentQuery studentQuery, IStudentCommand studentCommand) {
             _studentQuery = studentQuery;
+            _studentCommand = studentCommand;
         }
 
         [HttpGet("get-all")]

@@ -1,4 +1,4 @@
-﻿namespace Application.DTO.Student {
+﻿namespace Application.Dto {
 
     public class UpdateStudentRequest {
         public string FirstName { get; set; }

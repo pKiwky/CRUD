@@ -11,6 +11,9 @@ namespace Application {
             services.AddScoped<IStudentQuery, StudentQuery>();
             services.AddScoped<IStudentCommand, StudentCommand>();
 
+            services.AddScoped<IDisciplineQuery, DisciplineQuery>();
+            services.AddScoped<IDisciplineCommand, DisciplineCommand>();
+
             return services;
         }
     }
