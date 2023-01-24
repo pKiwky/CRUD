@@ -15,9 +15,9 @@ namespace WebAPI.Controller {
             _classbookCommand = classbookCommand;
         }
 
-        [HttpGet("get-grades")]
-        public async Task<IActionResult> GetAll() {
-            return Handle(await _classbookQuery.GetAll());
+        [HttpGet("get-student-grades/{id}")]
+        public async Task<IActionResult> GetStudentGrade(Guid id) {
+            return Handle(await _classbookQuery.GetStudentGrades(id));
         }
 
         [HttpPost("create-grade")]

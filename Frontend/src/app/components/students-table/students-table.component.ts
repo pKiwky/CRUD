@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { StudentService } from '../services/student.service';
+import { StudentService } from '../../services/student.service';
 
 @Component({
   selector: 'app-students-table',
@@ -23,7 +23,7 @@ export class StudentsTableComponent implements OnInit {
   constructor(
     private studentService: StudentService,
     private toastrService: ToastrService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getStudents();
@@ -35,24 +35,28 @@ export class StudentsTableComponent implements OnInit {
     });
   }
 
-  deleteStudent(id: any) {
-    this.studentService.delete(id).subscribe({
-      next: (resp) => {
-        this.toastrService.success('Student was deleted successfully.');
-        this.getStudents();
-      },
-      error: (e) => {
-        e = e.error;
+  displayModal(student: any = null) {
+    this.display = true;
+    this.add = student === null;
 
-        if (e.errors != null) {
-          this.toastrService.error(e.errors[0].message);
-        }
-      },
-    });
+    // Add
+    if (student === null) {
+      this.formData.reset();
+    }
+    // Edit
+    else {
+      this.formData.setValue({
+        id: student.id,
+        firstName: student.firstName,
+        lastName: student.lastName,
+        department: student.department,
+        sex: student.sex,
+      });
+    }
   }
 
   addStudent() {
-    this.studentService.create(this.formData.value).subscribe({
+    this.studentService.createStudent(this.formData.value).subscribe({
       next: (resp) => {
         this.toastrService.success('Student was added successfully.');
         this.getStudents();
@@ -75,14 +79,34 @@ export class StudentsTableComponent implements OnInit {
       return;
     }
 
-    this.studentService.update(id, {
-      firstName: this.formData.value.firstName,
-      lastName: this.formData.value.lastName,
-      department: this.formData.value.department,
-      sex: this.formData.value.sex,
-    }).subscribe({
+    this.studentService
+      .updateStudent(id, {
+        firstName: this.formData.value.firstName,
+        lastName: this.formData.value.lastName,
+        department: this.formData.value.department,
+        sex: this.formData.value.sex,
+      })
+      .subscribe({
+        next: (resp) => {
+          this.toastrService.success('Student was updated successfully.');
+          this.getStudents();
+        },
+        error: (e) => {
+          e = e.error;
+
+          if (e.errors != null) {
+            this.toastrService.error(e.errors[0].message);
+          }
+        },
+      });
+
+    this.display = false;
+  }
+
+  deleteStudent(id: any) {
+    this.studentService.deleteStudent(id).subscribe({
       next: (resp) => {
-        this.toastrService.success('Student was updated successfully.');
+        this.toastrService.success('Student was deleted successfully.');
         this.getStudents();
       },
       error: (e) => {
@@ -93,27 +117,5 @@ export class StudentsTableComponent implements OnInit {
         }
       },
     });
-
-    this.display = false;
-  }
-
-  displayModal(student: any = null) {
-    this.display = true;
-    this.add = student === null;
-
-    // Add
-    if (student === null) {
-      this.formData.reset();
-    }
-    // Edit
-    else {
-      this.formData.setValue({
-        id: student.id,
-        firstName: student.firstName,
-        lastName: student.lastName,
-        department: student.department,
-        sex: student.sex,
-      });
-    }
   }
 }

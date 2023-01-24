@@ -14,10 +14,10 @@ namespace Application.Handlers {
         }
 
         public async Task<KernelControllerResponse<IEnumerable<GetDisciplineResponse>>> GetAll() {
-            var studentEntities = await _applicationDbContext.Disicplines.ToListAsync();
+            var disciplineEntities = await _applicationDbContext.Disicplines.ToListAsync();
 
             return new KernelControllerResponse<IEnumerable<GetDisciplineResponse>>(
-                studentEntities.Adapt<IEnumerable<GetDisciplineResponse>>()
+                disciplineEntities.Adapt<IEnumerable<GetDisciplineResponse>>()
             );
         }
     }

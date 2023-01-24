@@ -17,9 +17,6 @@ namespace Application {
             services.AddScoped<IProfessorQuery, ProfessorQuery>();
             services.AddScoped<IProfessorCommand, ProfessorCommand>();
 
-            services.AddScoped<IProfessorDisciplineQuery, ProfessorDisciplineQuery>();
-            services.AddScoped<IProfessorDisciplineCommand, ProfessorDisciplineCommand>();
-
             services.AddScoped<IClassbookQuery, ClassbookQuery>();
             services.AddScoped<IClassbookCommand, ClassbookCommand>();
 

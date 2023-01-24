@@ -3,7 +3,7 @@
 namespace Application.Contracts.Queries {
 
     public interface IClassbookQuery {
-        Task<KernelControllerResponse<IEnumerable<GetClassbookGradeResponse>>> GetAll();
+        Task<KernelControllerResponse<IEnumerable<GetClassbookGradeResponse>>> GetStudentGrades(Guid id);
     }
 
 }

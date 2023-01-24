@@ -1,0 +1,65 @@
+<div class="p-4">
+  <div class="card" style="background-color: #2a323d;">
+    <div class="card-header text-white fw-bold">
+      <span class="pe-1">
+        Students
+      </span>
+      <p-button styleClass="p-button-success p-button-sm" type="button" (click)="displayModal()"
+        icon="pi pi-plus-circle"></p-button>
+    </div>
+    <div class="card-body">
+      <p-table [value]="students" [paginator]="true" [rows]="10">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Department</th>
+            <th>Sex</th>
+            <th>Actions</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-student>
+          <tr>
+            <td>{{student.firstName}}</td>
+            <td>{{student.lastName}}</td>
+            <td>{{student.department}}</td>
+            <td>{{student.sex}}</td>
+            <td>
+              <p-button styleClass="p-button-danger p-button-sm me-2" (click)="deleteStudent(student.id)"
+                icon="pi pi-trash"></p-button>
+              <p-button styleClass="p-button-primary p-button-sm" (click)="displayModal(student)" icon="pi pi-pencil"></p-button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+
+<p-dialog [style]="{'width': '20rem'}" [modal]="true" [resizable]="false" [draggable]="false"
+  [(visible)]="display">
+  <ng-template pTemplate="header">
+    {{add ? 'Add student' : 'Edit student'}}
+  </ng-template>
+
+  <ng-template pTemplate="content">
+    <form [formGroup]="formData">
+      <div class="input-container">
+        <input pInputText type="text" class="p-inputtext-sm" placeholder="First Name" formControlName="firstName" />
+      </div>
+      <div class="input-container">
+        <input pInputText type="text" class="p-inputtext-sm" placeholder="Last Name" formControlName="lastName" />
+      </div>
+      <div class="input-container">
+        <input pInputText type="text" class="p-inputtext-sm" placeholder="Department" formControlName="department" />
+      </div>
+      <div class="input-container">
+        <input pInputText type="text" class="p-inputtext-sm" placeholder="Sex" formControlName="sex" />
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <p-button label="{{add ? 'Add' : 'Edit'}}" (click)="add === true ? addStudent() : editStudent()"></p-button>
+  </ng-template>
+</p-dialog>

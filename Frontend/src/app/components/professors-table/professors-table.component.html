@@ -2,32 +2,36 @@
   <div class="card" style="background-color: #2a323d;">
     <div class="card-header text-white fw-bold">
       <span class="pe-1">
-        Students
+        Professors
       </span>
       <p-button styleClass="p-button-success p-button-sm" type="button" (click)="displayModal()"
         icon="pi pi-plus-circle"></p-button>
     </div>
     <div class="card-body">
-      <p-table [value]="students" [paginator]="true" [rows]="10">
+      <p-table [value]="professors" [paginator]="true" [rows]="10">
         <ng-template pTemplate="header">
           <tr>
+            <th>CNP</th>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Department</th>
-            <th>Sex</th>
+            <th>Function</th>
+            <th>Address</th>
+            <th>Phone</th>
             <th>Actions</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-student>
           <tr>
+            <td>{{student.cnp}}</td>
             <td>{{student.firstName}}</td>
             <td>{{student.lastName}}</td>
-            <td>{{student.department}}</td>
-            <td>{{student.sex}}</td>
+            <td>{{student.function}}</td>
+            <td>{{student.address}}</td>
+            <td>{{student.phone}}</td>
             <td>
-              <p-button styleClass="p-button-danger me-2" (click)="deleteStudent(student.id)"
+              <p-button styleClass="p-button-danger p-button-sm me-2" (click)="deleteProfessor(student.id)"
                 icon="pi pi-trash"></p-button>
-              <p-button styleClass="p-button-primary" (click)="displayModal(student)" icon="pi pi-pencil"></p-button>
+              <p-button styleClass="p-button-primary p-button-sm" (click)="displayModal(student)" icon="pi pi-pencil"></p-button>
             </td>
           </tr>
         </ng-template>
@@ -36,14 +40,17 @@
   </div>
 </div>
 
-<p-dialog header="Add new student" [style]="{'width': '20rem'}" [modal]="true" [resizable]="false" [draggable]="false"
+<p-dialog [style]="{'width': '20rem'}" [modal]="true" [resizable]="false" [draggable]="false"
   [(visible)]="display">
   <ng-template pTemplate="header">
-    {{add ? 'Add student' : 'Edit student'}}
+    {{add ? 'Add professor' : 'Edit professor'}}
   </ng-template>
 
   <ng-template pTemplate="content">
     <form [formGroup]="formData">
+      <div class="input-container">
+        <input pInputText type="text" class="p-inputtext-sm" placeholder="CNP" formControlName="cnp" />
+      </div>
       <div class="input-container">
         <input pInputText type="text" class="p-inputtext-sm" placeholder="First Name" formControlName="firstName" />
       </div>
@@ -51,15 +58,18 @@
         <input pInputText type="text" class="p-inputtext-sm" placeholder="Last Name" formControlName="lastName" />
       </div>
       <div class="input-container">
-        <input pInputText type="text" class="p-inputtext-sm" placeholder="Department" formControlName="department" />
+        <input pInputText type="text" class="p-inputtext-sm" placeholder="Function" formControlName="function" />
       </div>
       <div class="input-container">
-        <input pInputText type="text" class="p-inputtext-sm" placeholder="Sex" formControlName="sex" />
+        <input pInputText type="text" class="p-inputtext-sm" placeholder="Address" formControlName="address" />
+      </div>
+      <div class="input-container">
+        <input pInputText type="text" class="p-inputtext-sm" placeholder="Phone" formControlName="phone" />
       </div>
     </form>
   </ng-template>
 
   <ng-template pTemplate="footer">
-    <p-button label="{{add ? 'Add' : 'Edit'}}" (click)="add === true ? addStudent() : editStudent()"></p-button>
+    <p-button label="{{add ? 'Add' : 'Edit'}}" (click)="add === true ? addProfessor() : editProfessor()"></p-button>
   </ng-template>
 </p-dialog>

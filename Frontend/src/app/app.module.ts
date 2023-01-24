@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { StudentsTableComponent } from './students-table/students-table.component';
+import { StudentsTableComponent } from './components/students-table/students-table.component';
 import { TableModule } from 'primeng/table';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
@@ -12,9 +12,14 @@ import { DialogModule } from 'primeng/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { ProfessorsTableComponent } from './components/professors-table/professors-table.component';
 
 @NgModule({
-  declarations: [AppComponent, StudentsTableComponent],
+  declarations: [
+    AppComponent,
+    StudentsTableComponent,
+    ProfessorsTableComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

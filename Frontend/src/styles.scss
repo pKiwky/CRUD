@@ -1,9 +1,12 @@
-@import 'node_modules/primeng/resources/themes/bootstrap4-dark-blue/theme.css';
-@import 'node_modules/ngx-toastr/toastr.css';
-@import 'node_modules/primeicons/primeicons.css';
+@import "node_modules/primeng/resources/themes/bootstrap4-dark-blue/theme.css";
+@import "node_modules/ngx-toastr/toastr.css";
+@import "node_modules/primeicons/primeicons.css";
 
-html, body {
+html,
+body {
   background-color: #1c2128 !important;
+  margin: 0;
+  padding: 0;
 }
 
 .p-component-overlay {
@@ -11,4 +14,33 @@ html, body {
   position: fixed;
   backdrop-filter: blur(2px);
   transition-duration: 0.2s;
+}
+
+.p-datatable-table {
+  td {
+    padding: 0.5rem 1rem !important;
+  }
+}
+
+.p-button {
+  &.p-button-sm {
+    font-size: 0.875rem;
+    padding: 0.25rem 0.65625rem;
+  }
+}
+
+.toast-container {
+  font-size: 14px;
+
+  .ngx-toastr {
+    box-shadow: none !important;
+  }
+}
+
+#toast-container {
+  position: fixed !important;
+
+  div {
+    margin-bottom: 5px;
+  }
 }

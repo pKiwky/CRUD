@@ -6,11 +6,11 @@ using WebAPI.Common;
 
 namespace WebAPI.Controller {
 
-    public class DisciplineController : APIController {
+    public class DisciplinesController : APIController {
         private readonly IDisciplineQuery _disciplineQuery;
         private readonly IDisciplineCommand _disciplineCommand;
 
-        public DisciplineController(IDisciplineQuery disciplineQuery, IDisciplineCommand disciplineCommand) {
+        public DisciplinesController(IDisciplineQuery disciplineQuery, IDisciplineCommand disciplineCommand) {
             _disciplineQuery = disciplineQuery;
             _disciplineCommand = disciplineCommand;
         }
