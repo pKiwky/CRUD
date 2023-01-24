@@ -14,6 +14,15 @@ namespace Application {
             services.AddScoped<IDisciplineQuery, DisciplineQuery>();
             services.AddScoped<IDisciplineCommand, DisciplineCommand>();
 
+            services.AddScoped<IProfessorQuery, ProfessorQuery>();
+            services.AddScoped<IProfessorCommand, ProfessorCommand>();
+
+            services.AddScoped<IProfessorDisciplineQuery, ProfessorDisciplineQuery>();
+            services.AddScoped<IProfessorDisciplineCommand, ProfessorDisciplineCommand>();
+
+            services.AddScoped<IClassbookQuery, ClassbookQuery>();
+            services.AddScoped<IClassbookCommand, ClassbookCommand>();
+
             return services;
         }
     }
