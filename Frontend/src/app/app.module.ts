@@ -13,12 +13,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ProfessorsTableComponent } from './components/professors-table/professors-table.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { DisciplinesTableComponent } from './components/disciplines-table/disciplines-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     StudentsTableComponent,
     ProfessorsTableComponent,
+    NavbarComponent,
+    DisciplinesTableComponent,
   ],
   imports: [
     BrowserModule,

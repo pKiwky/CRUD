@@ -28,7 +28,7 @@ namespace Application.Handlers {
         }
 
         public async Task<KernelControllerResponse<KernelResponse>> UpdateDiscipline(Guid id, UpdateDisciplineRequest updateDisciplineRequest) {
-            var diciplineEntity = await _applicationDbContext.Students.FirstOrDefaultAsync(s => s.Id == id);
+            var diciplineEntity = await _applicationDbContext.Disicplines.FirstOrDefaultAsync(s => s.Id == id);
 
             if (diciplineEntity == null) {
                 return new KernelControllerResponse<KernelResponse>().AddNotFoundError();
@@ -43,13 +43,13 @@ namespace Application.Handlers {
         }
 
         public async Task<KernelControllerResponse<KernelResponse>> DeleteDiscipline(Guid id) {
-            var diciplineEntity = await _applicationDbContext.Students.FirstOrDefaultAsync(s => s.Id == id);
+            var diciplineEntity = await _applicationDbContext.Disicplines.FirstOrDefaultAsync(s => s.Id == id);
 
             if (diciplineEntity == null) {
                 return new KernelControllerResponse<KernelResponse>().AddNotFoundError();
             }
 
-            _applicationDbContext.Students.Remove(diciplineEntity);
+            _applicationDbContext.Disicplines.Remove(diciplineEntity);
             if (await _applicationDbContext.SaveChangesAsync() == 0) {
                 return new KernelControllerResponse<KernelResponse>().AddError("UnknownError", "An unknown error occurred.");
             }

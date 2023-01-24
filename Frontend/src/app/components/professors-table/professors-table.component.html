@@ -20,18 +20,18 @@
             <th>Actions</th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-student>
+        <ng-template pTemplate="body" let-professor>
           <tr>
-            <td>{{student.cnp}}</td>
-            <td>{{student.firstName}}</td>
-            <td>{{student.lastName}}</td>
-            <td>{{student.function}}</td>
-            <td>{{student.address}}</td>
-            <td>{{student.phone}}</td>
+            <td>{{professor.cnp}}</td>
+            <td>{{professor.firstName}}</td>
+            <td>{{professor.lastName}}</td>
+            <td>{{professor.function}}</td>
+            <td>{{professor.address}}</td>
+            <td>{{professor.phone}}</td>
             <td>
-              <p-button styleClass="p-button-danger p-button-sm me-2" (click)="deleteProfessor(student.id)"
+              <p-button styleClass="p-button-danger p-button-sm me-2" (click)="deleteProfessor(professor.id)"
                 icon="pi pi-trash"></p-button>
-              <p-button styleClass="p-button-primary p-button-sm" (click)="displayModal(student)" icon="pi pi-pencil"></p-button>
+              <p-button styleClass="p-button-primary p-button-sm" (click)="displayModal(professor)" icon="pi pi-pencil"></p-button>
             </td>
           </tr>
         </ng-template>
