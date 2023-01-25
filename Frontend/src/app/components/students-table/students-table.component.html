@@ -27,7 +27,10 @@
             <td>
               <p-button styleClass="p-button-danger p-button-sm me-2" (click)="deleteStudent(student.id)"
                 icon="pi pi-trash"></p-button>
-              <p-button styleClass="p-button-primary p-button-sm" (click)="displayModal(student)" icon="pi pi-pencil"></p-button>
+              <p-button styleClass="p-button-primary p-button-sm me-2" (click)="displayModal(student)"
+                icon="pi pi-pencil"></p-button>
+              <p-button styleClass="p-button-warning p-button-sm" (click)="displayGradeModal(student)"
+                icon="pi pi-info-circle"></p-button>
             </td>
           </tr>
         </ng-template>
@@ -36,8 +39,7 @@
   </div>
 </div>
 
-<p-dialog [style]="{'width': '20rem'}" [modal]="true" [resizable]="false" [draggable]="false"
-  [(visible)]="display">
+<p-dialog [style]="{'width': '20rem'}" [modal]="true" [resizable]="false" [draggable]="false" [(visible)]="display">
   <ng-template pTemplate="header">
     {{add ? 'Add student' : 'Edit student'}}
   </ng-template>
@@ -61,5 +63,47 @@
 
   <ng-template pTemplate="footer">
     <p-button label="{{add ? 'Add' : 'Edit'}}" (click)="add === true ? addStudent() : editStudent()"></p-button>
+  </ng-template>
+</p-dialog>
+
+<p-dialog [style]="{'width': '20rem'}" [modal]="true" [resizable]="false" [draggable]="false"
+  [(visible)]="displayGrade">
+  <ng-template pTemplate="header"> Add grade </ng-template>
+
+  <ng-template pTemplate="content">
+    <div class="grades pb-3">
+      <p-table [value]="studentGrades">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Discipline</th>
+            <th>Grade</th>
+            <th>Actions</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-studentGrade>
+          <tr [ngClass]="studentGrade.grade > 4 ? 'bg-success' : 'bg-danger'">
+            <td>{{studentGrade.disciplineName}}</td>
+            <td>{{studentGrade.grade}}</td>
+            <td>
+              <p-button styleClass="p-button p-button-sm me-2" (click)="deleteGrade(studentGrade)"
+                icon="pi pi-trash"></p-button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <form [formGroup]="formDataGrade">
+      <div class="input-container">
+        <p-dropdown class="p-inputtext-sm" [options]="disciplines" formControlName="discipline" optionLabel="name" />
+      </div>
+      <div class="input-container">
+        <input pInputText type="text" class="p-inputtext-sm" placeholder="Grade" formControlName="grade" />
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <p-button label="Add" (click)="addGrade()"></p-button>
   </ng-template>
 </p-dialog>

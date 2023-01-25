@@ -15,9 +15,20 @@ namespace Application.Handlers {
         }
 
         public async Task<KernelControllerResponse<CreateClassbookGradeResponse>> CreateClassbookGrade(CreateClassbookGradeRequest createClassbookGradeRequest) {
-            var classbookEntity = createClassbookGradeRequest.Adapt<ClassbookEntity>();
+            var classbookEntity = await _applicationDbContext.Classbook
+                .FirstOrDefaultAsync(c => c.StudentId == createClassbookGradeRequest.StudentId && c.DisciplineId == createClassbookGradeRequest.DisciplineId);
 
-            _applicationDbContext.Classbook.Add(classbookEntity);
+            // Edit current grade.
+            if (classbookEntity != null) {
+                classbookEntity.Grade = createClassbookGradeRequest.Grade;
+            }
+            // Add new grade.
+            else {
+                classbookEntity = createClassbookGradeRequest.Adapt<ClassbookEntity>();
+                classbookEntity.Date = DateTime.Now;
+                _applicationDbContext.Classbook.Add(classbookEntity);
+            }
+
             if (await _applicationDbContext.SaveChangesAsync() != 0) {
                 return new KernelControllerResponse<CreateClassbookGradeResponse>(new CreateClassbookGradeResponse() {
                     Id = classbookEntity.Id
@@ -28,13 +39,14 @@ namespace Application.Handlers {
         }
 
         public async Task<KernelControllerResponse<KernelResponse>> UpdateClassbookGrade(Guid id, UpdateClassbookGradeRequest updateClassbookGradeRequest) {
-            var classbookEntity = await _applicationDbContext.Students.FirstOrDefaultAsync(s => s.Id == id);
+            var classbookEntity = await _applicationDbContext.Classbook.FirstOrDefaultAsync(s => s.Id == id);
 
             if (classbookEntity == null) {
                 return new KernelControllerResponse<KernelResponse>().AddNotFoundError();
             }
 
             updateClassbookGradeRequest.Adapt(classbookEntity);
+
             if (await _applicationDbContext.SaveChangesAsync() == 0) {
                 return new KernelControllerResponse<KernelResponse>().AddError("UnknownError", "An unknown error occurred.");
             }
@@ -43,13 +55,14 @@ namespace Application.Handlers {
         }
 
         public async Task<KernelControllerResponse<KernelResponse>> DeleteClassbookGrade(Guid id) {
-            var classbookEntity = await _applicationDbContext.Students.FirstOrDefaultAsync(s => s.Id == id);
+            var classbookEntity = await _applicationDbContext.Classbook.FirstOrDefaultAsync(s => s.Id == id);
 
             if (classbookEntity == null) {
                 return new KernelControllerResponse<KernelResponse>().AddNotFoundError();
             }
 
-            _applicationDbContext.Students.Remove(classbookEntity);
+            _applicationDbContext.Classbook.Remove(classbookEntity);
+
             if (await _applicationDbContext.SaveChangesAsync() == 0) {
                 return new KernelControllerResponse<KernelResponse>().AddError("UnknownError", "An unknown error occurred.");
             }

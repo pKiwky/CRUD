@@ -15,6 +15,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ProfessorsTableComponent } from './components/professors-table/professors-table.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { DisciplinesTableComponent } from './components/disciplines-table/disciplines-table.component';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { DisciplinesTableComponent } from './components/disciplines-table/discip
     ButtonModule,
     ReactiveFormsModule,
     InputTextModule,
+    DropdownModule,
     ToastrModule.forRoot(),
   ],
   providers: [],

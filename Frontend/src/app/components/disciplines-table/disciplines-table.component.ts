@@ -26,11 +26,13 @@ export class DisciplinesTableComponent implements OnInit {
     private toastrService: ToastrService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getDisciplines();
+  }
 
   getDisciplines() {
-    this.disciplineService.getDisciplines().subscribe((data) => {
-      this.disciplines = data.result;
+    this.disciplineService.getDisciplines().subscribe((resp) => {
+      this.disciplines = resp.result;
     });
   }
 
